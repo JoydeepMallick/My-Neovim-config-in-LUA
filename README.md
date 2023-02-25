@@ -8,7 +8,7 @@ Transition from Vimscript to Lua seems a little different due to better folder s
 2. This has been made considering Windows 10 user using neovim and shell by default is cmd, few functionalities to implement in powershell don't work as intended so commented out as of now.
 
 
-### One major problem in Neovim terminal when executing an exe file is that pasting Multiple lines in that exe file will simply concatenate them to one line causing errorneous output 
+### ⚠One major problem in Neovim terminal when executing an exe file is that pasting Multiple lines in that exe file will simply concatenate them to one line causing errorneous output 
 
 i.e.   copied block of code
 ```        
@@ -30,6 +30,6 @@ on the terminal following can be seen which is unexpected :-
 22  3asd4  4qwer
 ```
 
-A workarround I found out is to use an input file and make it seem to user as if we are entering data into terminal by inserting most recent copied data in register into input file and then passing it our code. This can be found in my [keymaps.lua](https://github.com/JoydeepMallick/My-Neovim-config-in-LUA/blob/main/lua/keymaps.lua) file.
+### ⚒ A workarround I found out is to use an input file and make it seem to user as if we are entering data into terminal by inserting most recent copied data in register into input file and then passing it our code. This can be found in my [keymaps.lua](https://github.com/JoydeepMallick/My-Neovim-config-in-LUA/blob/main/lua/keymaps.lua) file.
         
 Suggestions and improvement are welcomed.
