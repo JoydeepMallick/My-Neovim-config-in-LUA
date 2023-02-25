@@ -77,15 +77,15 @@ keymap.set('i', '<C-v>', '<Esc>:w<cr>')
 -- ⭐Note :-
 --
 -- if shell is set to cmd then in c++ executable can be called using .... && %:r 
--- else if shell is set to cmd or if :term pwsh......... is used then call using ...... && ./%:r 
+-- else if shell is set to pwsh or if :term pwsh......... is used then call using ...... && ./%:r 
 --
 -- --------------------------------------------------------------------------------------------
 
--- Note :- 
--- passing input file to exe in powershell is not same as cmd < 
+-- ⭐Note :- 
+-- passing input file to .exe in powershell is not same as in cmd wherein  out.exe < inputfile works fine.
 -- read this :- https://stackoverflow.com/questions/2148746/the-operator-is-reserved-for-future-use
 
--- to paste something in vim command line(the lower portion where you type :...) press <Ctrl+R> + and enter
+-- to paste something in vim command line(the lower portion where you type  :<commands...> ) press '<Ctrl+R> +' and enter
 
 
 function CreateInputFile(filename)
@@ -112,7 +112,7 @@ vim.api.nvim_create_autocmd("Filetype",{
 })
 
 
--- C++ code runner using std=c++20 with input file contained latest copied data!!!
+-- C++ code runner using std=c++20 with input file containing latest copied data in register !!!
 vim.api.nvim_create_autocmd("Filetype", {
     pattern = {"cpp","CPP","cxx","CXX","hpp","hxx","Hxx","HXX"},
     command = "nnoremap <F5> :lua CreateInputFile() <CR> <C-r>+ <CR> <CR> :w <bar> :split<CR> :term g++ % -std=c++20 -pipe -Wall -Wextra -Wshadow -Og -o %:r && %:r < %:r.in <CR> i"
