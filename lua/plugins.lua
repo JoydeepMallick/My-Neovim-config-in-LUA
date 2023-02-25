@@ -1,3 +1,10 @@
+------------------------------------------------------------------
+-- 
+-- As a refernce read the blog below :-
+-- https://wiki.nikiv.dev/text-editors/vim/vim-plugins
+--
+------------------------------------------------------------------
+
 local status, packer = pcall(require, 'packer')
 if(not status) then
     print("Packer is not installed")
@@ -46,6 +53,7 @@ packer.startup(function(use)
 
     -- all possible colorschemes
     use('flazz/vim-colorschemes')
+    use('morhetz/gruvbox')
     use('lifepillar/vim-gruvbox8')
     use('muellan/am-colors')
     use('EdenEast/nightfox.nvim')
@@ -90,5 +98,32 @@ packer.startup(function(use)
     use('terryma/vim-multiple-cursors')
 
 
+    -- lualine statusbar
+    use {
+        'nvim-lualine/lualine.nvim',
+        requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+    }
 
+    -- improved load time of nvim by using cache memory.
+    use 'lewis6991/impatient.nvim'
+    
+
+    -- beautiful startup screen
+    use {
+        "startup-nvim/startup.nvim",
+        requires = {"nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim"},
+        config = function()
+            require"startup".setup()
+         end
+    }
+    
+    -- make windows transparent or opaque as per need if its supported
+    use('xiyaowong/nvim-transparent')
+
+    -- automatically highlighting other uses of the word under the cursor using either LSP, Tree-sitter, or regex matching.
+    use('RRethy/vim-illuminate')
+
+    -- commenter plugin
+    use "terrortylor/nvim-comment"
+    require('nvim_comment').setup()
 end)

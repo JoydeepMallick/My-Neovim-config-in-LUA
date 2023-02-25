@@ -34,6 +34,14 @@ keymap.set('n','sv', ':vsplit<Return><C-w>w', {silent = true})  -- Vertical spli
 
 -- move window
 keymap.set('n','<Space>', '<C-w>w') -- move between all windows
+-- delete current window
+keymap.set('', '<leader>c', '<C-w>c')
+-- Horizontal split
+keymap.set('', '<leader>v', '<C-w>v')
+-- Vertical split
+keymap.set('','<leader>s', '<C-w>s')
+-- Balance window 
+keymap.set('', '<leader>=', '<C-w>=')
 
 keymap.set('', '<C-left>', '<C-w>h')
 keymap.set('', '<C-down>', '<C-w>j')
@@ -54,19 +62,114 @@ keymap.set('n', '<C-w><down>', '<C-w>-')
 -- launch file explorer with :Ex and our remap
 keymap.set('n', '<leader>ex', vim.cmd.Ex)
 
--- save using ctrl+s and source neovim in any mode currently
-keymap.set('', '<C-s>', '<Esc>:w<cr>:so<cr>')
+-- save using ctrl+s and write the file 
+keymap.set('', '<C-s>', '<Esc>:w<cr>')
+-- while in insert mode ctrl-v paste copied text
+keymap.set('i', '<C-v>', '<Esc>:w<cr>')
 
+---------personal keymaps to compile various programs in different programming language----------
 
------------------- my personal keymaps to compile various programs in different programming language-------------------
--- read this for help :- https://github.com/abzcoding/lvim/blob/main/lua/user/autocommands.lua
+-- Usage :-
 --
--- ------------------------------------- 💔💔💔💔💔not working --------------------------------------------------------
+-- press <F5> to run,  till now only support for 4 languages java, python, c and c++ 
+-- others to be included at time = ♾ or at interest
+--
+-- ⭐Note :-
+--
+-- if shell is set to cmd then in c++ executable can be called using .... && %:r 
+-- else if shell is set to cmd or if :term pwsh......... is used then call using ...... && ./%:r 
+--
+-- --------------------------------------------------------------------------------------------
 
-vim.api.nvim_create_autocmd("FileType", { pattern = "cpp", 
-    command = "nnoremap <buffer> <C-c> :split<CR>:te g++ -std=c++14 -Wshadow -Wall -o %:t:r % -g -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG && ./%:t:r<CR>i"})
+-- Note :- 
+-- passing input file to exe in powershell is not same as cmd < 
+-- read this :- https://stackoverflow.com/questions/2148746/the-operator-is-reserved-for-future-use
 
+-- to paste something in vim command line(the lower portion where you type :...) press <Ctrl+R> + and enter
+
+
+function CreateInputFile(filename)
+  filename = filename or vim.fn.expand("%:r")  -- use current file name if no filename provided
+  local dir = vim.fn.expand("%:p:h")
+  local input_file = dir .. "/" .. filename .. ".in"
+
+  -- Prompt the user to enter input
+  local input = vim.fn.input("Enter input:\n")
+
+  -- Write input to the input file
+  local file = io.open(input_file, "w")
+  file:write(input)
+  file:close()
+
+  -- Show a message indicating the input file has been created
+  vim.api.nvim_out_write("Created input file: " .. input_file .. "\n")
+end
+
+
+-- enter last recent copied data to input file named according to current file name pressing <Ctrl + v> in normal mode(simple copy required data and then press ctrl-v in neovim )
+vim.api.nvim_create_autocmd("Filetype",{
+    command = "nnoremap <C-v> :lua CreateInputFile()<CR> <C-r>+ <CR>"
+})
+
+
+-- C++ code runner using std=c++20 with input file contained latest copied data!!!
 vim.api.nvim_create_autocmd("Filetype", {
     pattern = {"cpp","CPP","cxx","CXX","hpp","hxx","Hxx","HXX"},
-    command = "nnoremap <F5> <ESC> :w <bar> :split<cr> :term g++ % -std=c++20 -pipe -Wall -Wextra -Wshadow -Og -o %:r.exe && ./%:r.exe<CR> i"
+    command = "nnoremap <F5> :lua CreateInputFile() <CR> <C-r>+ <CR> <CR> :w <bar> :split<CR> :term g++ % -std=c++20 -pipe -Wall -Wextra -Wshadow -Og -o %:r && %:r < %:r.in <CR> i"
+    --command = "nnoremap <F5> :lua CreateInputFile()<CR>:w <bar> :split<CR> :term g++ % -std=c++20 -pipe -Wall -Wextra -Wshadow -Og -o " .. vim.fn.shellescape(vim.fn.expand("%:r")) .. " && " .. vim.fn.shellescape(vim.fn.expand("%:r")) .. " < " .. vim.fn.shellescape(vim.fn.expand("%:r") .. ".in") .. "<CR> i",
 })
+
+-- C code runner using std=c17
+vim.api.nvim_create_autocmd("Filetype", {
+    pattern = {"c","C","h","H"},
+    command = "nnoremap <F5> <ESC> :w <bar> :split<cr> :term gcc -std=c17 -Wall -Wextra -Wshadow -Ofast -o %< % && %< <CR> i"
+})
+
+-- Python code runner
+vim.api.nvim_create_autocmd("Filetype", {
+    pattern = {"python"},
+    command = "nnoremap <F5> <ESC> :w <bar> :split<cr> :term python % <CR> i"
+})
+
+-- Java code runner(untested)
+vim.api.nvim_create_autocmd("Filetype", {
+    pattern = {"java"},
+    command = "nnoremap <F5> <ESC> :w <bar> :split<cr> :term javac % && java %:r <CR> i"
+})
+
+
+------------- loading template for CP(my personal config, don't blindly copy) ---------------
+
+-- press cps in normal mode to get my template
+vim.api.nvim_set_keymap('n', 'cps', ':-1read H:\\Mytemplates\\cp_template_simple.cpp<CR>', { noremap = true })
+
+
+-- below code is specific to my codeforces and codechef folder wherin any file with .cpp extension will automatically load my template 
+-- we use escape sequence '\ '
+-- in Lua, the backslash \ is used as an escape character. It is used to indicate that the character following it should be treated specially ie. to denote a space here.
+vim.cmd([[
+  augroup cpp_template
+    autocmd!
+    autocmd BufNewFile C:/Users/JOYDEEP/Documents/PERSONAL\ ACHIEVEMENTS/{CODEFORCES,CODECHEF}/*.cpp 0r H:/Mytemplates/cp_template_simple.cpp
+  augroup END
+]])
+
+---------------------------------- manipulating the neovim terminal(🥺not yet working) ----------------------------------
+
+-- paste in neovim terminal for exe file wont seperate lines
+-- https://stackoverflow.com/questions/65695772/how-do-i-paste-the-copied-text-in-neovim-integrated-terminal-while-keeping-its-i
+
+-- vim.api.nvim_buf_set_option(0, 'modifiable', true)
+
+-- function Paste()
+--   local clipboard = vim.fn.split(vim.fn.system("powershell.exe -command 'Get-Clipboard'"), "\n")
+--   local term_buf = vim.fn.termopen('cmd.exe', { curwin = 1 })
+--   vim.fn.term_sendkeys(term_buf, table.concat(clipboard, "\\<cr>"), 1)
+--   vim.api.nvim_feedkeys(":startinsert\\<cr>", "n", true)
+--   vim.fn.term_wait(term_buf)
+--   vim.api.nvim_feedkeys("\\<C-\\>\\<C-n>", "n", true)
+-- end
+--
+--
+-- vim.api.nvim_set_keymap("t", "<C-v>", "<C-\\><C-n>:lua Paste()<CR>", {noremap = true})
+--

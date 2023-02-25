@@ -18,7 +18,6 @@ vim.opt.laststatus = 2
 
 -- used to have at least 10 extra rows after or before cursor  
 vim.opt.scrolloff = 10
---vim.opt.shell = 'cmd'
 --vim.opt.backupskip = '/tmp/*,/private/tmp/*'
 vim.opt.inccommand = 'split'
 vim.opt.breakindent = true
@@ -46,6 +45,34 @@ vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.smarttab = true
 vim.opt.expandtab = true
-
 -- fast update time 
 vim.opt.updatetime = 50 
+
+
+
+-- Check if pwsh is available, otherwise use powershell or cmd
+-- local shell = 'pwsh'
+
+-- local pwsh_path = vim.fn.trim(vim.fn.system('where pwsh'))
+-- if pwsh_path ~= '' then
+--   shell = pwsh_path
+-- else
+--   if vim.fn.has('win32') == 1 then
+--     shell = 'powershell'
+--   else
+--     shell = 'cmd'
+--   end
+--   print("PowerShell not found, using " .. shell .. " instead.")
+-- end
+
+-- Set shell options for PowerShell
+-- vim.o.shell = shell
+-- vim.o.shellcmdflag = '-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;'
+-- vim.o.shellredir = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
+-- vim.o.shellpipe = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
+-- vim.o.shellquote = ''
+-- vim.o.shellxquote = ''
+
+
+-- enable "bracketed paste mode" in your terminal emulator, which allows the terminal to distinguish between pasted text and manually typed text.(no benefit)
+vim.o.t_BE = "\x1b[200~"

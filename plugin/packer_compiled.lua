@@ -114,10 +114,25 @@ _G.packer_plugins = {
     path = "C:\\Users\\JOYDEEP\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\friendly-snippets",
     url = "https://github.com/rafamadriz/friendly-snippets"
   },
+  gruvbox = {
+    loaded = true,
+    path = "C:\\Users\\JOYDEEP\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\gruvbox",
+    url = "https://github.com/morhetz/gruvbox"
+  },
+  ["impatient.nvim"] = {
+    loaded = true,
+    path = "C:\\Users\\JOYDEEP\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\impatient.nvim",
+    url = "https://github.com/lewis6991/impatient.nvim"
+  },
   ["lsp-zero.nvim"] = {
     loaded = true,
     path = "C:\\Users\\JOYDEEP\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\lsp-zero.nvim",
     url = "https://github.com/VonHeikemen/lsp-zero.nvim"
+  },
+  ["lualine.nvim"] = {
+    loaded = true,
+    path = "C:\\Users\\JOYDEEP\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\lualine.nvim",
+    url = "https://github.com/nvim-lualine/lualine.nvim"
   },
   ["mason-lspconfig.nvim"] = {
     loaded = true,
@@ -145,15 +160,31 @@ _G.packer_plugins = {
     path = "C:\\Users\\JOYDEEP\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\nvim-cmp",
     url = "https://github.com/hrsh7th/nvim-cmp"
   },
+  ["nvim-comment"] = {
+    loaded = true,
+    path = "C:\\Users\\JOYDEEP\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\nvim-comment",
+    url = "https://github.com/terrortylor/nvim-comment"
+  },
   ["nvim-lspconfig"] = {
     loaded = true,
     path = "C:\\Users\\JOYDEEP\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\nvim-lspconfig",
     url = "https://github.com/neovim/nvim-lspconfig"
   },
+  ["nvim-transparent"] = {
+    loaded = true,
+    path = "C:\\Users\\JOYDEEP\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\nvim-transparent",
+    url = "https://github.com/xiyaowong/nvim-transparent"
+  },
   ["nvim-treesitter"] = {
     loaded = true,
     path = "C:\\Users\\JOYDEEP\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\nvim-treesitter",
     url = "https://github.com/nvim-treesitter/nvim-treesitter"
+  },
+  ["nvim-web-devicons"] = {
+    loaded = false,
+    needs_bufread = false,
+    path = "C:\\Users\\JOYDEEP\\AppData\\Local\\nvim-data\\site\\pack\\packer\\opt\\nvim-web-devicons",
+    url = "https://github.com/kyazdani42/nvim-web-devicons"
   },
   ["packer.nvim"] = {
     loaded = true,
@@ -170,6 +201,12 @@ _G.packer_plugins = {
     loaded = true,
     path = "C:\\Users\\JOYDEEP\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\rose-pine",
     url = "https://github.com/rose-pine/neovim"
+  },
+  ["startup.nvim"] = {
+    config = { "\27LJ\2\n5\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\fstartup\frequire\0" },
+    loaded = true,
+    path = "C:\\Users\\JOYDEEP\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\startup.nvim",
+    url = "https://github.com/startup-nvim/startup.nvim"
   },
   ["telescope.nvim"] = {
     loaded = true,
@@ -211,6 +248,11 @@ _G.packer_plugins = {
     path = "C:\\Users\\JOYDEEP\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vim-gruvbox8",
     url = "https://github.com/lifepillar/vim-gruvbox8"
   },
+  ["vim-illuminate"] = {
+    loaded = true,
+    path = "C:\\Users\\JOYDEEP\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vim-illuminate",
+    url = "https://github.com/RRethy/vim-illuminate"
+  },
   ["vim-multiple-cursors"] = {
     loaded = true,
     path = "C:\\Users\\JOYDEEP\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vim-multiple-cursors",
@@ -237,6 +279,10 @@ time([[Config for nvim-autopairs]], false)
 time([[Config for rose-pine]], true)
 try_loadstring("\27LJ\2\ne\0\0\3\0\6\0\n6\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\0016\0\3\0009\0\4\0'\2\5\0B\0\2\1K\0\1\0\26colorscheme rose-pine\bcmd\bvim\nsetup\14rose-pine\frequire\0", "config", "rose-pine")
 time([[Config for rose-pine]], false)
+-- Config for: startup.nvim
+time([[Config for startup.nvim]], true)
+try_loadstring("\27LJ\2\n5\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\fstartup\frequire\0", "config", "startup.nvim")
+time([[Config for startup.nvim]], false)
 
 _G._packer.inside_compile = false
 if _G._packer.needs_bufread == true then
