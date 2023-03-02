@@ -59,6 +59,9 @@ keymap.set('n', '<C-w><right>', '<C-w>>')
 keymap.set('n', '<C-w><up>', '<C-w>+')
 keymap.set('n', '<C-w><down>', '<C-w>-')
 
+-- switch between mutiple tabs 
+keymap.set('','<S-tab>', '<Esc> :bNext <CR>')
+
 -- launch file explorer with :Ex and our remap
 keymap.set('n', '<leader>ex', vim.cmd.Ex)
 
@@ -72,7 +75,7 @@ keymap.set('i', '<C-v>', '<Esc>:w<cr>')
 -- Usage :-
 --
 -- press <F5> to run,  till now only support for 4 languages java, python, c and c++ 
--- others to be included at time = ♾ or at interest
+-- others to be included at time = ♾  or at interest
 --
 -- ⭐Note :-
 --
@@ -89,8 +92,12 @@ keymap.set('i', '<C-v>', '<Esc>:w<cr>')
 
 
 function CreateInputFile(filename)
+  -- Get the current working directory
+  local cwd = vim.fn.getcwd()
+  print("cwd:", cwd)
+
   filename = filename or vim.fn.expand("%:r")  -- use current file name if no filename provided
-  local dir = vim.fn.expand("%:p:h")
+  local dir = vim.fn.expand('%:p:h')
   local input_file = dir .. "/" .. filename .. ".in"
 
   -- Prompt the user to enter input
@@ -98,13 +105,28 @@ function CreateInputFile(filename)
 
   -- Write input to the input file
   local file = io.open(input_file, "w")
+  if file == nil then
+    -- If the file couldn't be created in the current directory, try again in the
+    -- parent directory
+    input_file = cwd .. "/" .. filename .. ".in"
+    file = io.open(input_file, "w")
+    if file == nil then
+      -- If the file couldn't be created in the parent directory either, show an error
+      vim.api.nvim_out_write("Error: could not create input file in current or parent directory\n")
+      return
+    end
+  end
   file:write(input)
   file:close()
 
   -- Show a message indicating the input file has been created
   vim.api.nvim_out_write("Created input file: " .. input_file .. "\n")
-end
 
+  -- Delay for 2 seconds and then clear the message
+  vim.defer_fn(function()
+    vim.api.nvim_command("echo ''")
+  end, 2000)
+end
 
 -- enter last recent copied data to input file named according to current file name pressing <Ctrl + v> in normal mode(simple copy required data and then press ctrl-v in neovim )
 vim.api.nvim_create_autocmd("Filetype",{
@@ -115,8 +137,7 @@ vim.api.nvim_create_autocmd("Filetype",{
 -- C++ code runner using std=c++20 with input file containing latest copied data in register !!!
 vim.api.nvim_create_autocmd("Filetype", {
     pattern = {"cpp","CPP","cxx","CXX","hpp","hxx","Hxx","HXX"},
-    command = "nnoremap <F5> :lua CreateInputFile() <CR> <C-r>+ <CR> <CR> :w <bar> :split<CR> :term g++ % -std=c++20 -pipe -Wall -Wextra -Wshadow -Og -o %:r && %:r < %:r.in <CR> i"
-    --command = "nnoremap <F5> :lua CreateInputFile()<CR>:w <bar> :split<CR> :term g++ % -std=c++20 -pipe -Wall -Wextra -Wshadow -Og -o " .. vim.fn.shellescape(vim.fn.expand("%:r")) .. " && " .. vim.fn.shellescape(vim.fn.expand("%:r")) .. " < " .. vim.fn.shellescape(vim.fn.expand("%:r") .. ".in") .. "<CR> i",
+    command = "nnoremap <F5> :lua CreateInputFile() <CR> <C-r>+ <CR> <CR> :w <bar> :split<CR> :term g++ % -std=c++20 -pipe -Wall -Wextra -Wshadow -Og -o %:r && %:r < %:r.in <CR> i" 
 })
 
 -- C code runner using std=c17

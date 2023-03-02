@@ -126,4 +126,15 @@ packer.startup(function(use)
     -- commenter plugin
     use "terrortylor/nvim-comment"
     require('nvim_comment').setup()
+
+    -- nvim-tree file explorer
+    use {
+        'nvim-tree/nvim-tree.lua',
+        requires = {
+            'nvim-tree/nvim-web-devicons', -- optional, for file icons
+        },
+        tag = 'nightly' -- optional, updated every week. (see issue #1193)
+    }
+
+
 end)

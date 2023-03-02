@@ -1,0 +1,13 @@
+
+-- Press <Tab> to expand or jump in a snippet. These can also be mapped separately
+-- via <Plug>luasnip-expand-snippet and <Plug>luasnip-jump-next.
+vim.api.nvim_set_keymap('i', '<Tab>', 'luasnip#expand_or_jumpable() ? "<Plug>luasnip-expand-or-jump" : "<Tab>"', { silent = true, expr = true })
+-- -1 for jumping backwards.
+vim.api.nvim_set_keymap('i', '<S-Tab>', 'require"luasnip".jump(-1)', { silent = true, noremap = true })
+
+vim.api.nvim_set_keymap('s', '<Tab>', 'require("luasnip").jump(1)', { silent = true, noremap = true })
+vim.api.nvim_set_keymap('s', '<S-Tab>', 'require("luasnip").jump(-1)', { silent = true, noremap = true })
+
+-- For changing choices in choiceNodes (not strictly necessary for a basic setup).
+vim.api.nvim_set_keymap('i', '<C-E>', 'luasnip#choice_active() ? "<Plug>luasnip-next-choice" : "<C-E>"', { silent = true, expr = true })
+vim.api.nvim_set_keymap('s', '<C-E>', 'luasnip#choice_active() ? "<Plug>luasnip-next-choice" : "<C-E>"', { silent = true, expr = true })
