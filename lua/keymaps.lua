@@ -32,8 +32,8 @@ keymap.set('n', '<C-a>', '<Esc>ggVG')
 keymap.set('n' ,'te', ':tabedit<Return>', {silent = true})
 
 -- split window, keep it silent if not active else all edited at same time 
-keymap.set('n','ss', ':split<Return><C-w>w', {silent = true})   -- Horizontal split
-keymap.set('n','sv', ':vsplit<Return><C-w>w', {silent = true})  -- Vertical split
+-- keymap.set('n','ss', ':split<Return><C-w>w', {silent = true})   -- Horizontal split
+-- keymap.set('n','sv', ':vsplit<Return><C-w>w', {silent = true})  -- Vertical split
 
 -- delete current window
 keymap.set('', '<leader>c', '<C-w>c')
@@ -46,11 +46,6 @@ keymap.set('', '<leader>=', '<C-w>=')
 -- Switch between windows
 keymap.set('', '<leader>w', '<C-w>w')
 
--- more alternatives to move between windows😁
-keymap.set('', '<C-left>', '<C-w>h')
-keymap.set('', '<C-down>', '<C-w>j')
-keymap.set('', '<C-up>', '<C-w>k')
-keymap.set('', '<C-right>', '<C-w>l')
 -- even more alternatives to move between windows😈
 keymap.set('', '<C-h>', '<C-w>h')
 keymap.set('', '<C-j>', '<C-w>j')
@@ -62,11 +57,6 @@ keymap.set('n', '<C-Up>', '<ESC> :resize +3<CR>')
 keymap.set('n', '<C-down>', '<ESC> :resize -3<CR>')
 keymap.set('n', '<C-Left>', '<ESC> :vertical resize +3<CR>')
 keymap.set('n', '<C-Right>', '<ESC> :vertical resize -3<CR>')
--- even more keybindings to resize splits
-keymap.set('n', '<C-k>', '<ESC> :resize +3<CR>')
-keymap.set('n', '<C-j>', '<ESC> :resize -3<CR>')
-keymap.set('n', '<C-h>', '<ESC> :vertical resize +3<CR>')
-keymap.set('n', '<C-l>', '<ESC> :vertical resize -3<CR>')
 
 -- changing 2 split windows from vertical to horizontal or horizontal to vertical 
 keymap.set('n', '<leader>th', '<C-w>t<C-w>H')
@@ -81,9 +71,7 @@ keymap.set('', '<leader>bd', '<Esc> :bdelete<CR>')
 keymap.set('n', '<leader>ex', vim.cmd.Ex)
 
 -- save using ctrl+s and write the file 
-keymap.set('', '<C-s>', '<Esc>:w<cr>')
--- while in insert mode ctrl-v paste copied text
-keymap.set('i', '<C-v>', '<Esc>:w<cr>')
+keymap.set('n', '<C-s>', ':w<cr>')
 
 ---------personal keymaps to compile various programs in different programming language----------
 

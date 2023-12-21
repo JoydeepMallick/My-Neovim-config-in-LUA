@@ -7,7 +7,7 @@ function ColorMyPencils(color)
     -- 5. "vim-material"
     -- 6. "ayu"
     -- 7. "inkpot"
-    color = color or "gruvbox8_hard"
+    color = color or "sexy-railscasts"
     vim.cmd.colorscheme(color)
 
     vim.api.nvim_set_hl(0, "Normal", { bg = "none" })

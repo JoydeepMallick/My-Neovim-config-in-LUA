@@ -5,4 +5,4 @@
 -- startify
 
 -- below code is not working🤔 don't know why
-require("startup").setup({theme = "evil"}) 
+require("startup").setup({theme = "evil"})

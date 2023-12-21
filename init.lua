@@ -24,7 +24,12 @@
 --
 
 print('init.lua loaded successfully!')
+-- 🌟🌟🌟 load all lua files
+require('base')
+require('highlights')
+require('keymaps')
 require('plugins') -- using packer
+
 -- add language server for lua[ Please Install a language server before head, we use npm]
 -- use the following command in terminal/shell :-
 -- npm i -g pyright
@@ -39,15 +44,15 @@ end
 --------------------------------------------------------------------------------
 -- More work to be done on other systems.
 -- unix, linux, openbsd,........
-----------------------------------🔩🔩🔩🔩--------------------------------------
+---------------------------------🔩🔩🔩🔩--------------------------------------
 local is_mac = has "macunix"
 local is_win = has "win32"
 
-if is_mac then 
+if is_mac then
     require('macos')
 end
 
-if is_win then 
+if is_win then
     require('windows')
 end
 

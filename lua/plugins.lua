@@ -106,7 +106,7 @@ packer.startup(function(use)
 
     -- improved load time of nvim by using cache memory.
     use 'lewis6991/impatient.nvim'
-    
+
 
     -- beautiful startup screen
     use {
@@ -116,7 +116,7 @@ packer.startup(function(use)
             require"startup".setup()
          end
     }
-    
+
     -- make windows transparent or opaque as per need if its supported
     use('xiyaowong/nvim-transparent')
 

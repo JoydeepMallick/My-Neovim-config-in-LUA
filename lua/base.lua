@@ -1,4 +1,4 @@
---print("base.lua loaded")
+-- print("base.lua loaded")
 
 vim.cmd('autocmd!')
 
@@ -53,7 +53,7 @@ vim.opt.shiftwidth = 4
 vim.opt.smarttab = true
 vim.opt.expandtab = true
 -- fast update time 
-vim.opt.updatetime = 50 
+vim.opt.updatetime = 50
 
 
 
