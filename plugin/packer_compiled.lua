@@ -124,6 +124,11 @@ _G.packer_plugins = {
     path = "C:\\Users\\JOYDEEP\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\impatient.nvim",
     url = "https://github.com/lewis6991/impatient.nvim"
   },
+  ["live-server.nvim"] = {
+    loaded = true,
+    path = "C:\\Users\\JOYDEEP\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\live-server.nvim",
+    url = "https://github.com/barrett-ruth/live-server.nvim"
+  },
   ["lsp-zero.nvim"] = {
     loaded = true,
     path = "C:\\Users\\JOYDEEP\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\lsp-zero.nvim",

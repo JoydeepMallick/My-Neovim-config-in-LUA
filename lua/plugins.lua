@@ -1,6 +1,6 @@
 ------------------------------------------------------------------
 -- 
--- As a refernce read the blog below :-
+-- As a reference read the blog below :-
 -- https://wiki.nikiv.dev/text-editors/vim/vim-plugins
 --
 ------------------------------------------------------------------
@@ -135,6 +135,10 @@ packer.startup(function(use)
         },
         tag = 'nightly' -- optional, updated every week. (see issue #1193)
     }
+
+    -- live server plugin but ensure live-server is installed via node for it to work
+    use "barrett-ruth/live-server.nvim"
+    require('live-server').setup(opt)
 
 
 end)
