@@ -55,7 +55,8 @@ vim.opt.expandtab = true
 -- fast update time 
 vim.opt.updatetime = 50
 
-
+-- Always Show Tabline
+vim.o.showtabline = 2
 
 -- Check if pwsh is available, otherwise use powershell or cmd
 -- local shell = 'pwsh'

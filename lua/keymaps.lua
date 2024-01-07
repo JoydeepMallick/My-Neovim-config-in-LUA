@@ -71,8 +71,14 @@ keymap.set('', '<leader>bd', '<Esc> :bdelete<CR>')
 keymap.set('n', '<leader>ex', vim.cmd.Ex)
 
 -- save using ctrl+s and write the file 
-keymap.set('n', '<C-s>', ':w<cr>')
+keymap.set('i', '<C-s>', '<ESC>:w<CR>')
 
+-- TODO : move selected lines up and down using Alt + (k and j) respectively
+keymap.set('n', '<M-k>', ':m .-2<CR>==')
+keymap.set('n', '<M-j>', ':m .+1<CR>==')
+
+keymap.set('n', '<M-k>', ":m '<-2<CR>gv=gv")
+keymap.set('n', '<M-j>', ":m '>+1<CR>gv=gv")
 ---------personal keymaps to compile various programs in different programming language----------
 
 -- Usage :-
@@ -132,18 +138,18 @@ function CreateInputFile(filename)
 end
 
 -- enter last recent copied data to input file named according to current file name pressing <Ctrl + v> in normal mode(simple copy required data and then press ctrl-v in neovim )
-vim.api.nvim_create_autocmd("Filetype",{
-    command = "nnoremap <C-v> :lua CreateInputFile()<CR> <C-r>+ <CR>"
-})
+-- vim.api.nvim_create_autocmd("Filetype",{
+--     command = "nnoremap <C-v> :lua CreateInputFile()<CR> <C-r>+ <CR>"
+-- })
 
 
 -- C++ code runner using std=c++20 with input file containing latest copied data in register !!!  Press <F7> 
 -- (temporary fix to overcome paste problem in neovim integrated terminal)
-vim.api.nvim_create_autocmd("Filetype", {
-    pattern = {"cpp","CPP","cxx","CXX","hpp","hxx","Hxx","HXX"},
-    command = "nnoremap <F7> :lua CreateInputFile() <CR> <C-r>+ <CR> <CR> :w <bar> :split<CR> :term g++ % -std=c++20 -pipe -Wall -Wextra -Wshadow -Og -o %:r && %:r < %:r.in <CR> i"
-})
-
+-- vim.api.nvim_create_autocmd("Filetype", {
+--     pattern = {"cpp","CPP","cxx","CXX","hpp","hxx","Hxx","HXX"},
+--     command = "nnoremap <F7> :lua CreateInputFile() <CR> <C-r>+ <CR> <CR> :w <bar> :split<CR> :term g++ % -std=c++20 -pipe -Wall -Wextra -Wshadow -Og -o %:r && %:r < %:r.in <CR> i"
+-- })
+--
 
 -- C++ code runner by launching a seperate window to exploit paste   Press <F5>
 vim.api.nvim_create_autocmd("Filetype", {
@@ -151,7 +157,7 @@ vim.api.nvim_create_autocmd("Filetype", {
     command = "nnoremap <F5> :w <bar> :!start cmd /k  g++ % -std=c++20 -pipe -Wall -Wextra -Wshadow -Og -o %:r && %:r <CR>"
 })
 
--- C++ code runner by using contents from inp.in file in current location as input(Best suited for CP)    Press <F6> 
+-- C++ code runner by using contents from inp file in current location as input(Best suited for CP)    Press <F6> 
 -- ✔   Working Fine 
 function CreateInp()
   local inp_file = io.open("inp", "r")
@@ -164,7 +170,6 @@ function CreateInp()
   end
 end
 
--- ✔   most used hence completely OK, above codes need more refinement
 -- inp file passed  to exe and output stored in out.txt , CP bruh😎
 vim.api.nvim_create_autocmd("Filetype", {
     pattern = {"cpp","CPP","cxx","CXX","hpp","hxx","Hxx","HXX"},
@@ -200,7 +205,7 @@ vim.api.nvim_create_autocmd("Filetype", {
 })
 
 
--- Java code runner(untested)
+-- Java code runner in neovim terminal Press <F5>
 vim.api.nvim_create_autocmd("Filetype", {
     pattern = {"java"},
     command = "nnoremap <F5> <ESC> :w <bar> :split<cr> :term javac % && java %:r <CR> i"

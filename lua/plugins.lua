@@ -136,9 +136,21 @@ packer.startup(function(use)
         tag = 'nightly' -- optional, updated every week. (see issue #1193)
     }
 
-    -- live server plugin but ensure live-server is installed via node for it to work
-    use "barrett-ruth/live-server.nvim"
-    require('live-server').setup(opt)
+    -- nvim-surround, similar to tpope surround written in lua
+    use({
+        "kylechui/nvim-surround",
+        tag = "*", -- Use for stability; omit to use `main` branch for the latest features
+        config = function()
+            require("nvim-surround").setup({
+                -- Configuration here, or leave empty to use defaults
+            })
+        end
+    })
 
+    -- live server plugin but ensure live-server is installed via node for it to work
+    use {
+        'barrett-ruth/live-server.nvim',
+        require('live-server').setup(opt)
+    }
 
 end)
